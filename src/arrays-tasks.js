@@ -251,8 +251,8 @@ function toStringList(arr) {
  *   distinct([ 1, 1, 2, 2, 3, 3, 4, 4]) => [ 1, 2, 3, 4]
  *   distinct([]) => []
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  return Array.from(new Set(arr));
 }
 
 /**
@@ -268,8 +268,18 @@ function distinct(/* arr */) {
  *    createNDimensionalArray(4, 2) => [[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]
  *    createNDimensionalArray(1, 1) => [0]
  */
-function createNDimensionalArray(/* n, size */) {
-  throw new Error('Not implemented');
+function createNDimensionalArray(n, size) {
+  const result = Array.from({ length: size }, () => 0);
+
+  const createArray = (content, depth) => {
+    if (depth === 0) {
+      return content;
+    }
+    const fillContent = Array.from({ length: size }, () => content);
+    return createArray(fillContent, depth - 1);
+  };
+
+  return createArray(result, n - 1);
 }
 
 /**
